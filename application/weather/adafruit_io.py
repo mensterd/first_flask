@@ -5,9 +5,8 @@ from urllib.request import urlopen, Request
 from urllib import error
 import json, sys, os
 
-
 CONFIG_FILE_NAME = 'secrets.ini'
-basedir = os.path.abspath(os.path.dirname(__file__)) 
+basedir = os.path.abspath(os.path.dirname(__file__))
 config_file = os.path.join(basedir, CONFIG_FILE_NAME)
 
 BASE_ADAFRUIT_IO_API_URL = 'https://io.adafruit.com/api/v2/'
@@ -27,7 +26,6 @@ def _get_api_key():
     config.read(config_file)
     # return a tuple with username and token
     return (config['adafruit_io']['username'], config['adafruit_io']['token'])
-    
 
 
 def build_query_request(feed_key):
@@ -44,7 +42,6 @@ def build_query_request(feed_key):
     query_headers = {'fx-aio-key': token}
     url = f'{BASE_ADAFRUIT_IO_API_URL}{username}/feeds/{feed_key}/data'
     return (url, query_headers)
-
 
 
 def get_data(query_url, request_headers=None):
@@ -64,13 +61,13 @@ def get_data(query_url, request_headers=None):
             return json.loads(data)
 
     except error.HTTPError as e:
-            if e.code == 401:  #Unauthorized
-                sys.exit('Access denied, check your API key and username.')
-            if e.code == 404:  # Not found
-                sys.exit('Can\'t find data for this url.')
-                # sys lets you exit the program without traceback
-            else:
-                sys.exit(f'Houston, we have a problem: ({e.code})')
+        if e.code == 401:  #Unauthorized
+            sys.exit('Access denied, check your API key and username.')
+        if e.code == 404:  # Not found
+            sys.exit('Can\'t find data for this url.')
+            # sys lets you exit the program without traceback
+        else:
+            sys.exit(f'Houston, we have a problem: ({e.code})')
 
 
 def get_adafruit_io(feed_key):
@@ -84,7 +81,6 @@ def main():
     print(data)
     print('lenght: ', len(data))
     print(type(data))
-
 
 
 if __name__ == '__main__':

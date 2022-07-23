@@ -130,4 +130,5 @@ dmypy.json
 
 # This app
 *.code-workspace
+.vscode
 secrets.ini
